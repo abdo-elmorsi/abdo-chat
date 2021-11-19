@@ -1,45 +1,68 @@
-import React, { Component } from "react";
-import TodoItem from "./Components/TodoItems/TodoItems";
-import AddItem from "./Components/AddItems/AddItems";
-import "./App.css";
+import React, { useState, useEffect, useRef } from 'react'
+import { getDatabase, ref, set, child, get } from "firebase/database";
+import fireDb from "./firebase"
+export default function App() {
+  const [state, setstate] = useState([]);
+  const name = useRef("");
+  const age = useRef("");
+  const mobile = useRef("");
 
-class App extends Component {
-  state = {
-    items: [
-      { id: 1, name: "Abdo", age: 20 },
-      { id: 2, name: "Ahmed", age: 60 },
-      { id: 3, name: "Mohame", age: 90 },
-    ],
-  };
-  DeleteItem = (i) => {
-    let items = this.state.items;
-    items.splice(i, 1);
-    this.setState({
-      items,
-    });
-    // let i = items.findIndex((item) => item.id === id);
 
-    // let items = this.state.items.filter((item) => {
-    //   return item.id !== id;
-    // });
-  };
-  addItem = (item) => {
-    item.id = Math.random();
-    let items = this.state.items;
-    items.push(item);
-    this.setState({
-      items,
-    });
-  };
-  render() {
-    return (
-      <div className="App container">
-        <h1 className="text-center">Todo List</h1>
-        <TodoItem items={this.state.items} DeleteItem={this.DeleteItem} />
-        <AddItem addItem={this.addItem} />
-      </div>
-    );
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const db = getDatabase();
+    const setData = () => {
+      set(ref(db, `users/`), [{ name: name.current.value, age: age.current.value, mobile: mobile.current.value }]);
+    };
+    setData();
+    console.log("abdo")
   }
-}
 
-export default App;
+  useEffect(() => {
+    const dbRef = ref(getDatabase());
+    get(child(dbRef, `users/`)).then((snapshot) => {
+      if (snapshot.exists()) {
+        setstate(snapshot.val());
+      } else {
+        console.log("No data available");
+      }
+    }).catch((error) => {
+      console.error(error);
+    });
+  }, [])
+
+  return (
+    <>
+      <form onSubmit={(e) => handleSubmit(e)}>
+        <input
+          type="text"
+          ref={name}
+          id="name"
+          placeholder="Enter Your Name"
+        />
+        <input
+          type="number"
+          ref={age}
+          id="age"
+          placeholder="Enter Your Age"
+        />
+        <input
+          type="number"
+          ref={mobile}
+          id="mobile"
+          placeholder="Enter Your mobile"
+        />
+        <input type="submit" value="Enter" />
+      </form>
+      {state?.map((ele, i) => {
+        return (
+          <div key={i}>
+            <h2>{ele?.name}</h2>
+            <h2>{ele?.age}</h2>
+            <h2>{ele?.mobile}</h2>
+          </div>
+        )
+      })}
+    </>
+  )
+}
