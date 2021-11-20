@@ -1,0 +1,81 @@
+.parent {
+	position: relative;
+}
+
+.parent .child {
+	bottom: 35%;
+	right: 9px;
+	position: absolute;
+	z-index: 2;
+	width: 22px;
+	cursor: pointer;
+}
+.login-wrapepr{
+	width: 50%;
+	top: 50%;
+	left: 50%;
+	position: absolute;
+	transform: translate(-50%,-50%);
+	-webkit-transform: translate(-50%,-50%);
+	-moz-transform: translate(-50%,-50%);
+	-ms-transform: translate(-50%,-50%);
+	-o-transform: translate(-50%,-50%);
+	display: flex;
+	flex-flow: row wrap;
+	background-color: #fff;
+	padding:50px 40px;
+	margin: 0 auto;
+	border-radius: 10px;
+	-webkit-border-radius: 10px;
+	-moz-border-radius: 10px;
+	-ms-border-radius: 10px;
+	-o-border-radius: 10px;
+}
+.login-wrapepr > div{
+	width: 50%;
+	margin: 50px auto;
+}
+.login-img{
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+.login-img img{
+	width: 60%;
+}
+
+@media screen and (max-width:1024px) {
+	.login-wrapepr{
+		width: 60%;
+	}
+
+	.login-img img{
+		width: 80%;
+	}
+}
+@media screen and (max-width:992px) {
+	.login-wrapepr{
+		width: 70%;
+	}
+
+	.login-img img{
+		width: 80%;
+	}
+}
+
+@media screen and (max-width:678px) {
+	.login-wrapepr{
+		width: 80%;
+	}
+	.login-wrapepr > div{
+		width: 100%;
+		margin: 30px auto;
+	}
+	.login-img{
+		margin-bottom: 80px;
+	}
+	.login-img img{
+		width: 70%;
+	}
+	
+}
