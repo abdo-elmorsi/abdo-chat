@@ -16,6 +16,7 @@ export default function Index() {
 				<Container fluid>
 					<Navbar.Brand>
 						<img src={`${User.image}`} alt='' />
+						<span className="px-2">{User.name}</span>
 					</Navbar.Brand>
 					<Navbar.Toggle aria-controls="navbarScroll" />
 					<Navbar.Collapse id="navbarScroll">

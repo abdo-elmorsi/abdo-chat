@@ -14,7 +14,7 @@ export default function Index() {
 		if (message.current.value.trim() !== "") {
 			console.log(message.current.value);
 			set(ref(
-				db, `Chat/${User.mobile}-${Math.round(Math.random() * 1000)}`),
+				db, `Chat/${new Date().getTime()}`),
 				{
 					name: User.name,
 					message: message.current.value,
