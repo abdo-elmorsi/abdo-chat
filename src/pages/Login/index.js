@@ -2,7 +2,6 @@ import React, { useRef, useState } from "react";
 import { useHistory } from "react-router-dom";
 import { Button, Form, Spinner } from "react-bootstrap";
 import { toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css';
 import "./style.css";
 
 
@@ -43,19 +42,10 @@ const Index = () => {
 				setLoading(false);
 				history.push("/");
 			})();
-			Name.current.value = '';
-			Mobile.current.value = '';
-			Image.current.value = '';
 		} else {
-			if (Name.current.value === '') {
-				toast.warning("please add your name")
-			}
-			if (Mobile.current.value === '') {
-				toast.warning("please add your phone number")
-			}
-			if (Image.current.value === '') {
-				toast.warning("please add your image")
-			}
+			if (Name.current.value === '') toast.warning("please add your name")
+			if (Mobile.current.value === '') toast.warning("please add your phone number")
+			if (Image.current.value === '') toast.warning("please add your image")
 			setLoading(false);
 		}
 	};

@@ -1,8 +1,7 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { getDatabase, ref, set, child, get, onValue } from "firebase/database";
-import { Row, Col, Container, Navbar } from 'react-bootstrap';
+import React, { useState, useEffect } from 'react'
+import { getDatabase, ref, onValue } from "firebase/database";
+import { Row, Col, Container } from 'react-bootstrap';
 import firebase from "../firebase"
-import { toast } from 'react-toastify';
 import NavBar from "../component/navbar"
 import SidBar from "../component/sidbar"
 import ChatBox from "../component/ChatBox"
@@ -13,7 +12,7 @@ export default function Index() {
 	const db = getDatabase();
 
 	useEffect(() => {
-		console.log(document.body.clientWidth)
+		console.log(firebase)
 		if (document.body.clientWidth < 753) {
 			setsmallScreen(true)
 		} else {
