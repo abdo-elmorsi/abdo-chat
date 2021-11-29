@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import "./style.css"
 import { Row, Form, Button, FormControl, Col, InputGroup } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { getDatabase, ref, set, child, get } from "firebase/database";
+import { getDatabase, ref, set, child, get, onValue } from "firebase/database";
 const User = JSON.parse(localStorage.getItem("User"));
 
 export default function Index() {
@@ -13,8 +13,7 @@ export default function Index() {
 	const SendMessage = (e) => {
 		e.preventDefault();
 		if (message.current.value.trim() !== "") {
-			set(ref(
-				db, `Chat/${new Date().getTime()}`),
+			set(ref(db, `Chat/${new Date().getTime()}`),
 				{
 					name: User.name,
 					message: message.current.value,
@@ -22,49 +21,17 @@ export default function Index() {
 			);
 			message.current.value = "";
 			setUpdate(!update)
-		} else {
-			toast.warning("please insert a message")
-		}
+		} else { toast.warning("please insert a message") }
 	}
-	// const starCountRef = ref(db, `Chat/`);
 
-
-	const dbRef = ref(getDatabase());
 	useEffect(() => {
-		get(child(dbRef, `Chat/`)).then((snapshot) => {
-			if (snapshot.exists()) {
-				if (snapshot.val() !== null) {
-					const Mess = Object.values(snapshot.val());
-					console.log(Mess);
-					const saveD = (params) => {
-						setmessages([...params])
-					}
-					saveD(Mess)
-				}
-			} else {
-				console.log("No data available");
-			}
-		}).catch((error) => {
-			console.error(error);
+		const starCountRef = ref(db, 'Chat/');
+		onValue(starCountRef, (snapshot) => {
+			const data = snapshot.val() || {};
+			setmessages(Object.values(data));
+			toast.success("new message");
 		});
-	}, [dbRef, update])
-
-
-	// onValue(starCountRef, (snapshot) => {
-	// 	// console.log(snapshot.val());
-	// 	// console.log(Object.keys(snapshot.val()));
-	// 	if (snapshot.val() !== null) {
-	// 		const Mess = Object.values(snapshot.val());
-	// 		console.log(Mess);
-	// 		const saveD = (params) => {
-	// 			setmessages([...params])
-	// 		}
-	// 		// saveD(Mess)
-	// 		// setmessages(Mess)
-	// 		// return false;
-	// 	}
-	// 	// setmessages([...Object.values(snapshot.val())])
-	// });
+	}, [db])
 	return (
 		<>
 			<Row>
