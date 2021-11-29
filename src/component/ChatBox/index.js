@@ -71,7 +71,13 @@ export default function Index() {
 					<ul>
 						{messages?.map((ele, i) => {
 							return (
-								<li className={`${ele.name === User.name ? "text-start" : "text-end"}`} key={i}><span className="fs-6">{ele.name.split(" ").slice(0, 1)}</span>: {ele.message}</li>
+								<li className={`${ele.name === User.name ? "text-start" : "text-end text-danger"}`} key={i}>
+									{ele.name === User.name ? (
+										<span className="fs-6">👀 {ele.message}</span>
+									) : (
+										<span className="fs-6">{ele.message} :{ele.name.split(" ").slice(0, 1)}</span>
+									)}
+								</li>
 							)
 						})}
 					</ul>

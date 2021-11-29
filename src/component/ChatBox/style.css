@@ -4,9 +4,11 @@
 
 ul {
 	list-style: none;
+	padding: 0;
 }
 ul li {
 	font-size: 1.2rem;
 	font-style: italic;
 	color: #198754;
+	margin-bottom: 2px;
 }
