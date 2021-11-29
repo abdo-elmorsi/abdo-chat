@@ -8,11 +8,11 @@ const User = JSON.parse(localStorage.getItem("User"));
 export default function Index() {
 	const message = useRef('');
 	const [messages, setmessages] = useState([])
+	const [update, setUpdate] = useState(true)
 	const db = getDatabase();
 	const SendMessage = (e) => {
 		e.preventDefault();
 		if (message.current.value.trim() !== "") {
-			console.log(message.current.value);
 			set(ref(
 				db, `Chat/${new Date().getTime()}`),
 				{
@@ -21,6 +21,7 @@ export default function Index() {
 				}
 			);
 			message.current.value = "";
+			setUpdate(!update)
 		} else {
 			toast.warning("please insert a message")
 		}
@@ -46,7 +47,7 @@ export default function Index() {
 		}).catch((error) => {
 			console.error(error);
 		});
-	}, [dbRef, message.current.value])
+	}, [dbRef, update])
 
 
 	// onValue(starCountRef, (snapshot) => {
