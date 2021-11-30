@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import "./style.css"
 import { Row, Form, Button, FormControl, Col, InputGroup } from 'react-bootstrap';
 import { toast } from 'react-toastify';
-import { getDatabase, ref, set, child, get, onValue } from "firebase/database";
+import { getDatabase, ref, set, onValue } from "firebase/database";
 const User = JSON.parse(localStorage.getItem("User"));
 
 export default function Index() {
