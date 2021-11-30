@@ -35,7 +35,7 @@ export default function Index() {
 	return (
 		<>
 			<Row>
-				<Col sm={12} className="overflow-auto" style={{ height: "70vh" }}>
+				<Col sm={12} className="overflow-auto" style={{ height: "75vh" }}>
 					<ul className="chatBox pt-4">
 						{messages?.map((ele, i) => {
 							return (
