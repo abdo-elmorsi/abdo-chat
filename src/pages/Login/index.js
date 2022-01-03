@@ -15,7 +15,6 @@ const Index = () => {
 	const Name = useRef("");
 	const Mobile = useRef("");
 	const Image = useRef("");
-	const db = getDatabase();
 
 	const LogIn = (e) => {
 		e.preventDefault();
@@ -23,15 +22,19 @@ const Index = () => {
 		localStorage.setItem("User", JSON.stringify({ name: Name.current.value, mobile: Mobile.current.value, image: Image.current.value }));
 		if (Name.current.value !== '' && Mobile.current.value !== '' && Image.current.value !== '') {
 			(async () => {
-				await set(ref(
-					db,
-					`users/${Mobile.current.value}`),
+				const db = getDatabase();
+				await set(ref(db, `users/${Mobile.current.value}`),
 					{
 						name: Name.current.value,
 						mobile: Mobile.current.value,
 						image: Image.current.value
 					}
-				);
+				).then(() => {
+					console.log('sucs')
+				}).catch((er) => {
+					console.error(er)
+				})
+				console.log(Name.current.value);
 				toast.success('💖 Welcome 💖', {
 					position: "top-center",
 					autoClose: 5000,
